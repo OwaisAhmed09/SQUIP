@@ -1,3 +1,4 @@
+import 'package:ambulance/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -16,10 +17,13 @@ class FirbeadePage extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: const Icon(Icons.arrow_back),
+          child: const Icon(
+            Icons.arrow_back,
+            color: SolidColors.fontColor,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.orange,
+        backgroundColor: SolidColors.appbar,
         title: Text("SERVIES",
             style: GoogleFonts.actor(
                 color: Colors.black,

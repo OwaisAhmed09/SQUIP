@@ -1,44 +1,38 @@
-import 'package:ambulance/screens/loginpage.dart';
-import 'package:ambulance/widget/textField.dart';
+import 'package:ambulance/screens/rigester.dart';
+import 'package:ambulance/screens/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../utils/text.dart';
 
-class RigesteerPage extends StatefulWidget {
-  const RigesteerPage({super.key});
+class LogInPage extends StatefulWidget {
+  const LogInPage({super.key});
 
   @override
-  State<RigesteerPage> createState() => _RigesteerPageState();
+  State<LogInPage> createState() => _LogInPageState();
 }
 
-class _RigesteerPageState extends State<RigesteerPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController username = TextEditingController();
-
-  bool _obsecureText = true;
-  LoginR() async {
-    final CollectionReference users =
-        FirebaseFirestore.instance.collection('users');
-    users.add({
-      'email': email.text,
-      'password': password.text,
-      'username': username.text,
-    });
+class _LogInPageState extends State<LogInPage> {
+  LoginR(context) async {
+    // final CollectionReference users =
+    //     FirebaseFirestore.instance.collection('users');
+    // users.add({
+    //   'email': email.text,
+    //   'password': password.text,
+    // });
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
-      await credential.user!.updateProfile(displayName: username.text);
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LogInPage(),
+            builder: (context) => ServicesPage(),
           ));
     } on FirebaseAuthException catch (e) {
       print(
@@ -58,19 +52,20 @@ class _RigesteerPageState extends State<RigesteerPage> {
     }
   }
 
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 124, 174, 240),
+        backgroundColor:Color.fromARGB(255, 124, 174, 240),
         body: Center(
           child: Container(
             height: MediaQuery.of(context).size.height * 0.75,
             width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 252, 252, 252),
-              border: Border.all(
-                  width: 3, color: Color.fromARGB(255, 102, 168, 255)),
+              border: Border.all(width: 6, color: Color.fromARGB(255, 102, 168, 255)),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SingleChildScrollView(
@@ -83,7 +78,7 @@ class _RigesteerPageState extends State<RigesteerPage> {
                       Text(
                         TextFile.T_Account_Create,
                         style: GoogleFonts.urbanist(
-                            color: Colors.black,
+                            color: Color.fromARGB(255, 0, 0, 0),
                             letterSpacing: .7,
                             fontWeight: FontWeight.bold,
                             fontSize: 30),
@@ -92,7 +87,7 @@ class _RigesteerPageState extends State<RigesteerPage> {
                       Text(
                         TextFile.T_SingnUp,
                         style: GoogleFonts.urbanist(
-                            color: Colors.black,
+                            color: Color.fromARGB(255, 0, 0, 0),
                             letterSpacing: .7,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
@@ -100,31 +95,12 @@ class _RigesteerPageState extends State<RigesteerPage> {
                       SizedBox(height: 40),
                       TextField(
                         // email text field------------------------------
-                        controller: username,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          icon: const Icon(
-                            Icons.email,
-                            color: Colors.black,
-                          ),
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          labelText: 'Username',
-                          labelStyle: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        // email text field------------------------------
                         controller: email,
                         obscureText: false,
                         decoration: InputDecoration(
                           icon: const Icon(
                             Icons.email,
-                            color: Colors.black,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                           fillColor: Colors.grey.shade100,
                           filled: true,
@@ -132,7 +108,7 @@ class _RigesteerPageState extends State<RigesteerPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           labelText: 'Email',
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -142,7 +118,7 @@ class _RigesteerPageState extends State<RigesteerPage> {
                         decoration: InputDecoration(
                           icon: const Icon(
                             Icons.lock,
-                            color: Colors.black,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                           fillColor: Colors.grey.shade100,
                           filled: true,
@@ -150,9 +126,10 @@ class _RigesteerPageState extends State<RigesteerPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           labelText: 'Password',
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 32, 32, 32))),
                         ),
-                      ),
+                      
                       SizedBox(height: 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -164,7 +141,12 @@ class _RigesteerPageState extends State<RigesteerPage> {
                             width: MediaQuery.of(context).size.width * 0.5,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  LoginR();
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //       builder: (context) => ServicesPage(),
+                                  //     ));
+                                  LoginR(context);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: Color.fromARGB(255, 124, 174, 240),
@@ -172,9 +154,10 @@ class _RigesteerPageState extends State<RigesteerPage> {
                                 child: const Text(
                                   TextFile.SignUP_button,
                                   style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                                    color: Colors.black,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 )),
                           ),
                         ],
@@ -185,12 +168,11 @@ class _RigesteerPageState extends State<RigesteerPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LogInPage()));
+                                    builder: (context) => RigesteerPage()));
                           },
                           child: Text(
-                            TextFile.T_already,
-                            style: GoogleFonts.aBeeZee(
-                                color: Color.fromARGB(255, 0, 0, 0)),
+                            "Didn't have an account? SignUp",
+                            style: GoogleFonts.aBeeZee(color: Color.fromARGB(255, 0, 0, 0)),
                           )),
                     ],
                   ),

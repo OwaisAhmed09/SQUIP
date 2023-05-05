@@ -4,6 +4,8 @@
         android:label="ambulance"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAXzlISaRN4oVHvKMwnwEqFAv1GkkDLkzk"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,9 +1,12 @@
-import 'package:ambulance/provider/rigester_provider.dart';
+import 'package:ambulance/screens/ambulance.dart';
+import 'package:ambulance/screens/logInPage.dart';
+import 'package:ambulance/screens/rigester.dart';
+import 'package:ambulance/screens/services.dart';
 import 'package:ambulance/screens/splashScreen.dart';
-import 'package:ambulance/widget/login_provider.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,27 +22,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => SplashScreen(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => RegisterProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => UserLoginProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SQUIP',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.orange,
-        ),
-        home: SplashScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'SQUIP',
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.orange,
       ),
+      home: AmbulancePage(),
     );
   }
 }
